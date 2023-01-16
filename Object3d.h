@@ -216,6 +216,12 @@ public: // メンバ関数
 	/// <param name="position">座標</param>
 	void SetPosition(const XMFLOAT3& position) { this->position = position; }
 
+	/// <summary>
+/// ビルボードのON,OFF
+/// </summary>
+/// <param name="position">座標</param>
+	void BillBord(int billBordMode) { this->billBordMode = billBordMode; }
+
 private: // メンバ変数
 	ComPtr<ID3D12Resource> constBuff; // 定数バッファ
 	// 色
@@ -230,5 +236,7 @@ private: // メンバ変数
 	XMMATRIX matWorld;
 	// 親オブジェクト
 	Object3d* parent = nullptr;
+
+	int billBordMode = 0;
 };
 

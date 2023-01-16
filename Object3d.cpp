@@ -341,7 +341,7 @@ void Object3d::LoadTexture()
 	ScratchImage scratchImg{};
 
 	// WICテクスチャのロード
-	result = LoadFromWICFile(L"Resources/tex1.png", WIC_FLAGS_NONE, &metadata, scratchImg);
+	result = LoadFromWICFile(L"Resources/mario.png", WIC_FLAGS_NONE, &metadata, scratchImg);
 	assert(SUCCEEDED(result));
 
 	ScratchImage mipChain{};
@@ -732,7 +732,9 @@ void Object3d::Update()
 	matWorld *= matScale; // ワールド行列にスケーリングを反映
 	matWorld *= matRot; // ワールド行列に回転を反映
 
-	matWorld *= matBillbordY;//ビルボード行列を掛ける
+	if (billBordMode == 1) {
+		matWorld *= matBillbord;//ビルボード行列を掛ける
+	}
 
 	matWorld *= matTrans; // ワールド行列に平行移動を反映
 

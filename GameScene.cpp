@@ -36,7 +36,16 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	spriteBG = Sprite::Create(1, { 0.0f,0.0f });
 	// 3Dオブジェクト生成
 	object3d = Object3d::Create();
+	object3d->SetPosition(XMFLOAT3(-20,0,0));
+	//ビルボードON
+	object3d->BillBord(true);
 	object3d->Update();
+
+	// 3Dオブジェクト生成
+	object3d2 = Object3d::Create();
+	object3d2->SetPosition(XMFLOAT3(20, 0, 0));
+
+	object3d2->Update();
 
 	// テクスチャ読み込み
 	Sprite::LoadTexture(2, L"Resources/texture.png");
@@ -63,6 +72,18 @@ void GameScene::Update()
 
 		// 座標の変更を反映
 		object3d->SetPosition(position);
+
+		// 現在の座標を取得
+		XMFLOAT3 position2 = object3d2->GetPosition();
+
+		// 移動後の座標を計算
+		if (input->PushKey(DIK_UP)) { position2.y += 1.0f; }
+		else if (input->PushKey(DIK_DOWN)) { position2.y -= 1.0f; }
+		if (input->PushKey(DIK_RIGHT)) { position2.x += 1.0f; }
+		else if (input->PushKey(DIK_LEFT)) { position2.x -= 1.0f; }
+
+		// 座標の変更を反映
+		object3d2->SetPosition(position2);
 	}
 
 	// カメラ移動
@@ -85,6 +106,8 @@ void GameScene::Update()
 	}
 
 	object3d->Update();
+	object3d2->Update();
+
 }
 
 void GameScene::Draw()
@@ -114,6 +137,7 @@ void GameScene::Draw()
 
 	// 3Dオブクジェクトの描画
 	object3d->Draw();
+	object3d2->Draw();
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
